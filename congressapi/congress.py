@@ -94,7 +94,7 @@ class CongressApi(object):
     def recent_bills(self, congress_num, chamber, action_type):
         suffix = "%d/%s/bills/%s.json" % (congress_num, \
                 Chamber.tostring(chamber), action_type)
-        return self.get(suffix)
+        return self.get(suffix)[0]
 
     def recent_bills_by_member(self, member_id, action_type):
         suffix = "members/%s/bills/%s.json" % (member_id, action_type)
