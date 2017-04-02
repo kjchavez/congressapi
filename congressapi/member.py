@@ -1,4 +1,4 @@
-from congressapi.congress import CongressApi
+from congressapi import congress
 
 class Member(object):
     def __init__(self, data):
@@ -12,7 +12,7 @@ class Member(object):
 
 
 def get_member(member_id):
-    member_data = CongressApi().member(member_id)
+    member_data = congress.member(member_id)
     if member_data:
         return Member(member_data)
 

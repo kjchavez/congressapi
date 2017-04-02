@@ -1,3 +1,6 @@
-from congress import CongressApi, Chamber, BillAction
-from member import Member, get_member
-from bill import Bill, get_recent_bills
+# All relevant enums for the API
+from constants import *
+from congress import *
+set_api_key()
+
+from bill import Bill

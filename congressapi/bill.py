@@ -1,6 +1,6 @@
 import requests
 import HTMLParser
-from congressapi.congress import CongressApi
+from congressapi import congress
 
 _START_TAG = '<pre id="billTextContainer">'
 _END_TAG = '</pre>'
@@ -24,9 +24,6 @@ class Bill(object):
         self.bill_id = data['bill_id']
         self.data = data
 
-    def metadata(self):
-        return self.data
-
     def text(self):
         url = ""
         if 'congressdotgov_url' in self.data:
@@ -41,7 +38,7 @@ class Bill(object):
 
 def get_recent_bills(congress_num, chamber, action_type):
     """ Returns a list of Bill objects. """
-    results = CongressApi().recent_bills(congress_num, chamber, action_type)
+    results = congress.recent_bills(congress_num, chamber, action_type)
     if not results:
         return []
 
