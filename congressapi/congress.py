@@ -14,18 +14,10 @@ import logging
 import itertools
 
 class Chamber(Enum):
-    SENATE = 1
-    HOUSE = 2
+    SENATE = "senate"
+    HOUSE = "house"
 
-    @staticmethod
-    def tostring(chamber):
-        if chamber == Chamber.SENATE:
-            return "senate"
-        elif chamber == Chamber.HOUSE:
-            return "house"
-        return ""
-
-class BillAction(object):
+class BillAction(Enum):
     INTRODUCED = "introduced"
     UPDATED = "updated"
     PASSED = "passed"
@@ -69,7 +61,7 @@ class CongressApi(object):
         assert isinstance(chamber, Chamber)
         assert isinstance(congress_num, int)
         suffix = "%d/%s/members.json" % \
-                (congress_num, Chamber.tostring(chamber))
+                (congress_num, chamber.value)
         return self.get(suffix)
 
     def member(self, member_id):
@@ -88,16 +80,16 @@ class CongressApi(object):
         assert isinstance(roll_call_num, int)
         assert session in (1, 2)
         suffix = "%d/%s/sessions/%d/votes/%d.json" % (congress_num, \
-                Chamber.tostring(chamber), session, roll_call_num)
+                chamber.value, session, roll_call_num)
         return self.get(suffix)
 
     def recent_bills(self, congress_num, chamber, action_type):
         suffix = "%d/%s/bills/%s.json" % (congress_num, \
-                Chamber.tostring(chamber), action_type)
+                chamber.value, action_type.value)
         return self.get(suffix)[0]
 
     def recent_bills_by_member(self, member_id, action_type):
-        suffix = "members/%s/bills/%s.json" % (member_id, action_type)
+        suffix = "members/%s/bills/%s.json" % (member_id, action_type.value)
         return self.get(suffix)
 
     def bill(self, congress_num, bill_id):
