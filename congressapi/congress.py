@@ -7,10 +7,12 @@
 
     pip install requests==2.5.3
 """
-import requests
-import os
-import logging
+from datetime import datetime
 import itertools
+import logging
+import os
+import requests
+
 from congressapi.constants import *
 
 class Headers(object):
@@ -90,3 +92,16 @@ def recent_bills_by_member(member_id, action_type):
 def bill(congress_num, bill_id):
     suffix = "%d/bills/%s.json" % (congress_num, bill_id)
     return _get(suffix)[0]
+
+def current_congress():
+    """ Returns the number of current congress based on date. """
+    now = datetime.now()
+    year = now.year
+
+    # Reference point is that the 115th Congress started in 2017.
+    # Each session runs for 2 years from January 3rd to January 3rd.
+    current_congress =  115 + (year - 2017) // 2
+    if now.month == 1 and now.day < 3:
+        current_congress -= 1
+
+    return current_congress

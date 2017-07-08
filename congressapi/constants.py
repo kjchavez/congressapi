@@ -6,6 +6,7 @@ ENV_VAR = 'PROPUBLICA_CONGRESS_API_KEY'
 class Chamber(Enum):
     SENATE = "senate"
     HOUSE = "house"
+    BOTH = "both"
 
 class BillAction(Enum):
     INTRODUCED = "introduced"
