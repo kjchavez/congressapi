@@ -28,10 +28,11 @@ class Headers(object):
 
 def set_api_key(api_key=None):
     if not api_key:
-        if not ENV_VAR in os.environ:
-            raise Exception("%s not found in env." % ENV_VAR)
-
-        api_key = os.environ[ENV_VAR]
+        if ENV_VAR in os.environ:
+            api_key = os.environ[ENV_VAR]
+        else:
+            logging.warning("Could not find environment variable: %s", ENV_VAR)
+            return
 
     Headers.set('X-API-Key', api_key)
 
