@@ -56,10 +56,8 @@ def _get(url_suffix):
     return None
 
 def members(congress_num, chamber):
-    assert isinstance(chamber, Chamber)
-    assert isinstance(congress_num, int)
     suffix = "%d/%s/members.json" % \
-            (congress_num, chamber.value)
+            (congress_num, chamber)
     return _get(suffix)
 
 def member(member_id):
@@ -73,21 +71,18 @@ def member_votes(member_id):
     return _get(suffix)
 
 def vote_roll_call(congress_num, chamber, session, roll_call_num):
-    assert isinstance(chamber, Chamber)
-    assert isinstance(congress_num, int)
-    assert isinstance(roll_call_num, int)
     assert session in (1, 2)
     suffix = "%d/%s/sessions/%d/votes/%d.json" % (congress_num, \
-            chamber.value, session, roll_call_num)
+            chamber, session, roll_call_num)
     return _get(suffix)
 
 def recent_bills(congress_num, chamber, action_type):
     suffix = "%d/%s/bills/%s.json" % (congress_num, \
-            chamber.value, action_type.value)
+            chamber, action_type)
     return _get(suffix)[0]
 
 def recent_bills_by_member(member_id, action_type):
-    suffix = "members/%s/bills/%s.json" % (member_id, action_type.value)
+    suffix = "members/%s/bills/%s.json" % (member_id, action_type)
     return _get(suffix)
 
 def bill(congress_num, bill_id):
