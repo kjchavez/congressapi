@@ -7,5 +7,9 @@ setup(name='congressapi',
       author='Kevin Chavez',
       author_email='kevin.j.chavez@gmail.com',
       license='MIT',
+      install_requirements = [
+          "enum",
+          "requests"
+      ],
       packages=['congressapi'],
       zip_safe=False)
